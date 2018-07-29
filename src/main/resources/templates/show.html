@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>消息队列</title>
+    <script th:src="@{/js/jquery-3.2.1.min.js}"></script>
+</head>
+<body>
+<h2>消息队列测试界面</h2>
+<script type="text/javascript">
+    var websocket=null;
+    if('websocket' in window){
+                websocket=new WebSocket("ws://127.0.0.1:8078/websocket");
+    }else{
+        alert("次浏览器不支持websocket");
+    }
+    websocket.onopen=function (even) {
+    }
+    websocket.onclose=function (even) {
+    }
+    websocket.onerror=function (even) {
+        alert("websocket通信出错!");
+    }
+    websocket.onmessage=function (even) {
+        alert("redis订阅消息为:"+even.data);
+    }
+    window.onbeforeunload=function () {
+        //离开关闭websocket链接
+        websocket.close();
+    }
+</script>
+</body>
+</html>
